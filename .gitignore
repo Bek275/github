@@ -1,3 +1,4 @@
 # local scratch / build artifacts
 *.log
 .DS_Store
+grimoire/artifacts-src/evidence/
