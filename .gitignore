@@ -1,0 +1,3 @@
+# local scratch / build artifacts
+*.log
+.DS_Store

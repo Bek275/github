@@ -1,0 +1,62 @@
+# ---------------------------------------------------------------------------
+# "Observ" -- OffSec-style vulnerable lab with pivoting (2 machines)
+#
+#   Build & run:   docker compose up --build -d
+#   Tear down:     docker compose down
+#
+# Topology:
+#   attacker (your host) ──► web (M1)  ──► internal (M2)
+#                            ext+int        int only
+#
+#   * Machine 1 (web) is reachable from your host:  http://127.0.0.1  and
+#     ssh on 127.0.0.1:2222. It sits on BOTH networks.
+#   * Machine 2 (internal) has NO published ports. It lives only on the
+#     internal network (172.20.0.3) and can be reached ONLY by pivoting
+#     through Machine 1. This is the whole point of the exercise.
+#
+# SECURITY: isolated lab use only. Ports bind to localhost; never expose the
+# vulnerable hosts to an untrusted network or the public internet.
+# ---------------------------------------------------------------------------
+services:
+  web:
+    build: ./web
+    image: observ-web:latest
+    container_name: observ-web
+    hostname: observ-web
+    ports:
+      - "127.0.0.1:80:80"
+      - "127.0.0.1:2222:22"
+    networks:
+      ext: {}
+      int:
+        ipv4_address: 172.20.0.2
+    depends_on:
+      - internal
+    # M1 mints the throwaway pivot keypair at runtime and drops the public key
+    # here for M2 to pick up (so no private key is ever committed to the repo).
+    volumes:
+      - pivot:/pivot
+
+  internal:
+    build: ./internal
+    image: observ-internal:latest
+    container_name: observ-internal
+    hostname: observ-internal
+    # No published ports on purpose -- only reachable via the pivot host.
+    networks:
+      int:
+        ipv4_address: 172.20.0.3
+    volumes:
+      - pivot:/pivot:ro
+
+volumes:
+  pivot:
+
+networks:
+  ext:
+    driver: bridge
+  int:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
