@@ -9,6 +9,23 @@ How to build the two-machine **Observ** chain. Two paths are provided: the
 - **Base OS (both hosts):** Ubuntu 22.04 LTS
 - **Flags:** `local.txt` + `proof.txt` on each host (4 total)
 
+## Submission package layout
+
+The submission archive root contains the four required items; everything else
+lives inside `artifacts.zip`:
+
+```
+<submission>.zip
+├── autopwn.py          # non-interactive full-chain exploit (prints 4 flags)
+├── build-guide.md      # this file
+├── walkthrough.pdf     # full solution + lessons
+└── artifacts.zip
+     ├── README.md, credentials.txt, mitre-attack.md, test-results.txt, walkthrough.md
+     ├── docker-compose.yml          # authoritative, tested build
+     ├── web/ , internal/            # per-machine sources (Dockerfile, provisioning)
+     └── build/build-web.sh, build-internal.sh   # standalone VM build scripts
+```
+
 ## Network
 
 | Host | Role | External segment | Internal segment |
@@ -32,8 +49,9 @@ exchange and avoids committing any private key to the package.
 
 ### Option A — Docker (authoritative, tested 15/15)
 
+Run from the root of the unpacked `artifacts.zip`:
+
 ```bash
-cd artifacts
 docker compose up --build -d      # builds + starts both machines
 docker compose ps                 # confirm both Up
 docker compose down -v            # tear down (also clears the pivot key volume)
@@ -45,15 +63,16 @@ through a Docker volume (`/pivot`).
 
 ### Option B — Standalone VM build scripts
 
-Run on two clean Ubuntu 22.04 templates, as root:
+Run on two clean Ubuntu 22.04 templates, as root (paths relative to the
+unpacked `artifacts.zip`):
 
 ```bash
 # on M1:
-sudo artifacts/build/build-web.sh
-#   -> emits artifacts/build/out/svc_backup.pub
+sudo build/build-web.sh
+#   -> emits build/out/svc_backup.pub
 
 # copy that public key to M2, next to build-internal.sh, then on M2:
-sudo artifacts/build/build-internal.sh
+sudo build/build-internal.sh
 ```
 
 Assign the internal addresses (`172.20.0.2` / `172.20.0.3`) on the internal
@@ -71,10 +90,11 @@ the platform.)
 
 ## Verifying the build
 
-From an attacker with `curl`, `ssh`, `sshpass`, `python3`:
+From an attacker with `curl`, `ssh`, `sshpass`, `python3` (autopwn.py is at the
+package root):
 
 ```bash
-./autopwn.sh <M1_IP> 80 22        # Docker on host: ./autopwn.sh 127.0.0.1 80 2222
+./autopwn.py <M1_IP> 80 22        # Docker on host: ./autopwn.py 127.0.0.1 80 2222
 ```
 
 A clean build prints all four `OBSERV{...}` flags and exits 0. The full

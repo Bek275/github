@@ -10,17 +10,21 @@ Chained-host offensive lab (2 machines, pivoting) for the OffSec UGC program.
 
 ## Package contents
 
+The archive root holds the four required items (`autopwn.py`, `build-guide.md`,
+`walkthrough.pdf`, `artifacts.zip`). This README and the remaining material live
+inside `artifacts.zip`:
+
 | File / dir | Purpose |
 |------------|---------|
+| `autopwn.py` *(root)* | non-interactive full-chain exploit; prints all four flags |
+| `build-guide.md` *(root)* | how to build both machines (Docker + standalone VM scripts) |
+| `walkthrough.pdf` *(root)* | PDF rendering of the walkthrough |
 | `README.md` | this overview |
-| `build-guide.md` | how to build both machines (Docker + standalone VM scripts) |
 | `walkthrough.md` | full official solution, with a Lessons section |
-| `walkthrough.pdf` | PDF rendering of the walkthrough |
-| `autopwn.sh` | non-interactive full-chain exploit; prints all four flags |
 | `credentials.txt` | every username/password on the chain |
 | `mitre-attack.md` | MITRE ATT&CK mapping for each stage |
 | `test-results.txt` | reliability ("15x15") test evidence |
-| `artifacts/` | all source: web app, provisioning, Dockerfiles, build scripts |
+| `docker-compose.yml`, `web/`, `internal/`, `build/` | all source + build scripts |
 
 ## The chain at a glance
 
@@ -37,9 +41,10 @@ attacker ──► web (M1)  ──pivot──►  internal (M2)
 ## Quick build & verify
 
 ```bash
-cd artifacts && docker compose up --build -d      # build + run
-./autopwn.sh 127.0.0.1 80 2222                     # solve + print 4 flags
-cd .. && docker compose -f artifacts/docker-compose.yml down -v
+# from the root of the unpacked artifacts.zip:
+docker compose up --build -d                 # build + run both machines
+../autopwn.py 127.0.0.1 80 2222              # solve + print 4 flags
+docker compose down -v                        # tear down
 ```
 
 ## Notes for reviewers
