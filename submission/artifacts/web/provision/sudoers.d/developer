@@ -1,0 +1,5 @@
+# Observ ops: developer runs the scheduled health check as root (lab).
+# VULNERABLE: PYTHONPATH is preserved across sudo, so check.py's `import
+# netcheck` can be hijacked to execute attacker code as root.
+Defaults env_keep += "PYTHONPATH"
+developer ALL=(root) NOPASSWD: /usr/bin/python3 /opt/health/check.py

@@ -1,0 +1,9 @@
+# Minimal attacker box used only to run autopwn.sh against the lab during
+# local reliability testing (mirrors the tools a Kali attacker would have).
+FROM ubuntu:22.04
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        curl openssh-client sshpass python3 ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+WORKDIR /opt
+ENTRYPOINT ["/bin/bash"]

@@ -1,0 +1,4 @@
+# Observ backups: svc_backup archives data as root (lab).
+# VULNERABLE: unrestricted sudo tar allows a root shell via GTFOBins
+# (--checkpoint-action=exec=...).
+svc_backup ALL=(root) NOPASSWD: /usr/bin/tar

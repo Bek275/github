@@ -1,0 +1,27 @@
+Observ — Reliability / determinism test results
+===============================================
+
+Test   : full-chain autopwn on clean redeploys ("15x15")
+Harness: tools/reliability-test.sh  (docker compose down -v && up, then autopwn)
+Date   : 2026-10-07
+
+Each run is a CLEAN redeploy: all containers and volumes are destroyed, the
+pivot keypair is re-minted, and the database is re-seeded from scratch. The
+full autopwn then runs end to end and must capture all four flags.
+
+================= RELIABILITY RESULT =================
+matrix : [...............]        ( '.' = pass, 'X' = fail )
+passed : 15/15
+failed : 0/15
+time   : 257s (15 redeploys + full autopwn each)
+======================================================
+RESULT : 15/15 — deterministic, deployment-ready
+
+Flags captured on every run:
+  M1 local.txt : OBSERV{w3b_f00th0ld_ch41n3d_t0_r00t_9f2c}
+  M1 proof.txt : OBSERV{m1_r00t_pyth0np4th_h1j4ck_a71d}
+  M2 local.txt : OBSERV{p1v0t3d_t0_1nt3rn4l_h0st_c3d8}
+  M2 proof.txt : OBSERV{d0ubl3_pwn_tar_g7f0b1ns_r00t_4e90}
+
+Reproduce:
+  bash tools/reliability-test.sh 15
