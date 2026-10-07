@@ -18,10 +18,10 @@ time   : 257s (15 redeploys + full autopwn each)
 RESULT : 15/15 — deterministic, deployment-ready
 
 Flags captured on every run:
-  M1 local.txt : OBSERV{w3b_f00th0ld_ch41n3d_t0_r00t_9f2c}
-  M1 proof.txt : OBSERV{m1_r00t_pyth0np4th_h1j4ck_a71d}
-  M2 local.txt : OBSERV{p1v0t3d_t0_1nt3rn4l_h0st_c3d8}
-  M2 proof.txt : OBSERV{d0ubl3_pwn_tar_g7f0b1ns_r00t_4e90}
+  M1 local.txt : OS{w3b_f00th0ld_ch41n3d_t0_r00t_9f2c}
+  M1 proof.txt : OS{m1_r00t_pyth0np4th_h1j4ck_a71d}
+  M2 local.txt : OS{p1v0t3d_t0_1nt3rn4l_h0st_c3d8}
+  M2 proof.txt : OS{d0ubl3_pwn_tar_g7f0b1ns_r00t_4e90}
 
 Reproduce:
   bash tools/reliability-test.sh 15

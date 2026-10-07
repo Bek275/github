@@ -58,7 +58,7 @@ TODO (devops):
   from this box. Use the svc_backup key in ~/.ssh to jump there.
 - Rotate the shared DB/login password once ticket OPS-412 is done.
 EOF
-echo 'OBSERV{m1_r00t_pyth0np4th_h1j4ck_a71d}' > /root/proof.txt
+echo 'OS{m1_r00t_pyth0np4th_h1j4ck_a71d}' > /root/proof.txt
 chmod 600 /root/proof.txt
 
 echo "[build] minting pivot keypair (private key -> developer, public -> ./out)..."

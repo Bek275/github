@@ -97,7 +97,7 @@ package root):
 ./autopwn.py <M1_IP> 80 22        # Docker on host: ./autopwn.py 127.0.0.1 80 2222
 ```
 
-A clean build prints all four `OBSERV{...}` flags and exits 0. The full
+A clean build prints all four `OS{...}` flags and exits 0. The full
 reliability harness (`tools/reliability-test.sh 15`) redeploys clean 15 times
 and requires 15/15 — see `test-results.txt`.
 

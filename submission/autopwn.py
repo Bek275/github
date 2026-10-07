@@ -117,7 +117,7 @@ def main():
     ok(f"shell as developer@{hn}")
 
     f_m1_local = (ssh_m1("cat ~/local.txt") or "").strip()
-    fm = re.search(r"OBSERV\{[^}]*\}", f_m1_local)
+    fm = re.search(r"OS\{[^}]*\}", f_m1_local)
     f_m1_local = fm.group(0) if fm else ""
     if f_m1_local:
         ok(f"M1 local.txt  = {f_m1_local}")
@@ -130,7 +130,7 @@ def main():
             '> "$d/netcheck.py"; '
             'sudo -n PYTHONPATH="$d" /usr/bin/python3 /opt/health/check.py 2>/dev/null')
     out = ssh_m1(priv)
-    fm = re.search(r"OBSERV\{[^}]*\}", out)
+    fm = re.search(r"OS\{[^}]*\}", out)
     f_m1_proof = fm.group(0) if fm else ""
     if f_m1_proof:
         ok(f"M1 proof.txt  = {f_m1_proof}")
@@ -158,7 +158,7 @@ def main():
     ok(f"shell as svc_backup@{hn2}")
 
     f_m2_local = ssh_m2("cat ~/local.txt")
-    fm = re.search(r"OBSERV\{[^}]*\}", f_m2_local)
+    fm = re.search(r"OS\{[^}]*\}", f_m2_local)
     f_m2_local = fm.group(0) if fm else ""
     if f_m2_local:
         ok(f"M2 local.txt  = {f_m2_local}")
@@ -168,7 +168,7 @@ def main():
     tar = ("sudo -n tar -cf /dev/null /dev/null --checkpoint=1 "
            "--checkpoint-action=exec='cat /root/proof.txt' 2>/dev/null")
     out = ssh_m2(tar)
-    fm = re.search(r"OBSERV\{[^}]*\}", out)
+    fm = re.search(r"OS\{[^}]*\}", out)
     f_m2_proof = fm.group(0) if fm else ""
     if f_m2_proof:
         ok(f"M2 proof.txt  = {f_m2_proof}")

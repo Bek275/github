@@ -71,7 +71,7 @@ OffSec convention — two flags **per host**:
 | `web` (M1)     | `/home/developer/local.txt` | `/root/proof.txt`   |
 | `internal` (M2)| `/home/svc_backup/local.txt`| `/root/proof.txt`   |
 
-Each flag is an `OBSERV{...}` token.
+Each flag is an `OS{...}` token.
 
 ## Repository layout
 

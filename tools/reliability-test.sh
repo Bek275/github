@@ -48,7 +48,7 @@ for n in $(seq 1 "$RUNS"); do
     # run the full chain from the attacker container on the ext network
     OUT=$(docker run --rm --network "$EXTNET" -v "$PWD/submission:/opt:ro" \
             "$ATTACKER_IMG" -c "python3 /opt/autopwn.py $M1_IP 80 22" 2>&1)
-    FLAGS=$(printf '%s\n' "$OUT" | grep -c 'OBSERV{')
+    FLAGS=$(printf '%s\n' "$OUT" | grep -c 'OS{')
 
     if printf '%s\n' "$OUT" | grep -q 'ALL FOUR FLAGS CAPTURED' && [ "$FLAGS" -ge 4 ]; then
         ok "run $n: PASS (4/4 flags)"; PASS=$((PASS+1)); RESULTS+=(".")

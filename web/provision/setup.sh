@@ -48,7 +48,7 @@ chmod 700 /home/developer/.ssh
 chmod 644 /home/developer/local.txt
 
 echo "[setup] placing root flag..."
-echo 'OBSERV{m1_r00t_pyth0np4th_h1j4ck_a71d}' > /root/proof.txt
+echo 'OS{m1_r00t_pyth0np4th_h1j4ck_a71d}' > /root/proof.txt
 chmod 600 /root/proof.txt
 
 echo "[setup] seeding MariaDB..."

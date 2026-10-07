@@ -40,8 +40,8 @@ cp "$PUB" /home/svc_backup/.ssh/authorized_keys
 
 echo "[build] installing sudo rule + flags..."
 cp "$SRC/provision/sudoers.d/svc_backup" /etc/sudoers.d/svc_backup
-echo 'OBSERV{p1v0t3d_t0_1nt3rn4l_h0st_c3d8}' > /home/svc_backup/local.txt
-echo 'OBSERV{d0ubl3_pwn_tar_g7f0b1ns_r00t_4e90}' > /root/proof.txt
+echo 'OS{p1v0t3d_t0_1nt3rn4l_h0st_c3d8}' > /home/svc_backup/local.txt
+echo 'OS{d0ubl3_pwn_tar_g7f0b1ns_r00t_4e90}' > /root/proof.txt
 
 echo "[build] permissions..."
 chown -R svc_backup:svc_backup /home/svc_backup/.ssh /home/svc_backup/local.txt
